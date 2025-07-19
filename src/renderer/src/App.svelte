@@ -1,18 +1,22 @@
+
 <script lang="ts">
-  import { onMount } from 'svelte';
-  let sysInfo: unknown = {};
+	import CPURender from './components/CPURender.svelte';
+  import CpuInfo from './components/CpuInfo.svelte';
+  import CoreUtilizationMatrix from './components/CoreUtilizationMatrix.svelte';
+  import ActiveProcesses from './components/ActiveProcesses.svelte';
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  async function fetchInfo() {
-    sysInfo = await window.api.getSystemInfo();
-  }
-
-  onMount(() => {
-    fetchInfo()
-  })
 </script>
 
 <div class="container">
-  <pre>{JSON.stringify(sysInfo, null, 2)}</pre>
-</div>
 
+  <div class="row">
+    <div class="col-md-12" style="position: relative; z-index: 20000;">
+      <CpuInfo></CpuInfo>
+      <CoreUtilizationMatrix />
+
+      <ActiveProcesses></ActiveProcesses>
+    </div>
+  </div>
+  <CPURender></CPURender>
+    
+</div>
