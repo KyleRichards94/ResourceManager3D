@@ -1,5 +1,10 @@
 <script lang="ts">
-  import { onMount } from 'svelte'
+	  import Osciliscope from './Osciliscope.svelte';
+  	import { Vector3 } from '../../../classes/Vector3.js';
+    import { onMount } from 'svelte'
+    import ThreeRender from './ThreeRender.svelte';
+    import ModelUrl from '../assets/Cpu.glb?url';
+    import {CpuUtilization} from '../../../classes/SPAViewModel.js';
   // eslint-disable-next-line no-undef
   let cpuInfo: SystemInfo['cpu'] | null = null
 
@@ -15,28 +20,50 @@
   })
 </script>
 
-<div class="cpu-info">
-  {#if cpuInfo}
-    <h2>{cpuInfo.brand} | {cpuInfo.socket}</h2>
-    <div class="container ">
-      <div class="row row-cols-2">
-        <div class="col">
-          <p><strong>Model:</strong> {cpuInfo.model}</p>
-          <p><strong>Cores:</strong> {cpuInfo.cores}</p>
-            <p><strong>Physical Cores:</strong> {cpuInfo.physicalCores}</p>
-          <p><strong>Threads:</strong> {cpuInfo.threads}</p>
-          <p><strong>Speed:</strong> {cpuInfo.speed} GHz</p>
-        </div>
-        <div class="col">
-          <p><strong>Cache Size:</strong> {cpuInfo.cacheSize} MB</p>
-          <p><strong>Family:</strong> {cpuInfo.family}</p>
-          <p><strong>Vendor:</strong> {cpuInfo.vendor}</p>
-        </div>
-      </div>
+<div class="cpu-info row ">
+{#if cpuInfo}
+<div class="row">
+  <div class=" col-md-4">
+    <div class="scanlines glass border border-dark p-2 cpu-dos-box"> 
+      {cpuInfo.brand} | {cpuInfo.socket}
+       ───────────────────────────────
+>      Model          : {cpuInfo.model}
+>      Cores          : {cpuInfo.cores}
+>      Physical Cores : {cpuInfo.physicalCores}
+>      Speed          : {cpuInfo.speed} GHz
+    
+>      l3 Cache Size  : {cpuInfo.cache.l3/1024/1024} MB
+>      Family         : {cpuInfo.family}
+>      Vendor         : {cpuInfo.vendor}
     </div>
+  </div>
+  <div class="col-md-8 d-flex align-items-center justify-content-center position-relative">
+    <Osciliscope _Style="position:absolute; width:70%; height:70%; margin:40px" _Width={900} _Height={160} _Value={$CpuUtilization/2}></Osciliscope>
+    <ThreeRender _Style="z-index:0;"
+        _RenderHeight={290}
+        _RenderWidth={290}
+        _ModelUrl={ModelUrl} 
+        _Rotation={new Vector3(0.01,0.002,0.001)} />
+  </div>
+</div>
 
-  {:else}
-    <p>Loading CPU information...</p>
-  {/if}
+{:else}
+  <div class="cpu-dos-box">Loading CPU information...</div>
+{/if}
 
 </div>
+
+<style>
+
+.cpu-dos-box {
+  z-index: 1000;
+  background-color: #1111113b;
+  color: #ffffff;
+  font-family: 'Share Tech Mono', monospace;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  border-radius: 6px;
+}
+
+</style>

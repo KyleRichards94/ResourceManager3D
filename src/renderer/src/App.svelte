@@ -1,22 +1,34 @@
 
 <script lang="ts">
-	import CPURender from './components/CPURender.svelte';
-  import CpuInfo from './components/CpuInfo.svelte';
-  import CoreUtilizationMatrix from './components/CoreUtilizationMatrix.svelte';
-  import ActiveProcesses from './components/ActiveProcesses.svelte';
+	import { CurrentView, Views } from '../../classes/SPAViewModel.js';
+  import CpuInfoMenu from './components/CpuInfoView.svelte';
+	import MenuCarousel from './components/MenuItems.svelte';
+  // import ActiveProcesses from './components/ActiveProcesses.svelte';
 
 </script>
 
-<div class="container">
+<div class="container-fluid d-flex flex-column" style="height: 100vh; width:100vw; overflow: hidden;">
+  <!-- Top (scrollable) content -->
+  <div class="flex-grow-1 overflow-auto mt-3">
+    {#if $CurrentView === Views.Main}
+      <h3>Main lol</h3>
 
-  <div class="row">
-    <div class="col-md-12" style="position: relative; z-index: 20000;">
-      <CpuInfo></CpuInfo>
-      <CoreUtilizationMatrix />
+    {:else if $CurrentView === Views.CpuInfo}
+      <div class="container">
+        <div class="row">
+          <CpuInfoMenu />
+        </div>
+      </div>
 
-      <ActiveProcesses></ActiveProcesses>
-    </div>
+    {:else if $CurrentView === Views.TaskManager}
+      <div class="container">
+        <!-- Task manager content -->
+      </div>
+    {/if}
   </div>
-  <CPURender></CPURender>
-    
+
+  <!-- Bottom fixed menu -->
+  <div class="row d-block">
+    <MenuCarousel />
+  </div>
 </div>
