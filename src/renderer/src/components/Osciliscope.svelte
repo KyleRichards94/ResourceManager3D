@@ -8,7 +8,6 @@
   export let _ColorSecondary: string = '#ffffffaa';
 
   let _OsciliscopeID = crypto.randomUUID();
-
   let canvas: HTMLCanvasElement;
   let ctx: CanvasRenderingContext2D;
 
