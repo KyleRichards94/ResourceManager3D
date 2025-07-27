@@ -14,17 +14,20 @@ if (process.contextIsolated) {
     })
     contextBridge.exposeInMainWorld('api', {
       api,
-       getOS: () => ipcRenderer.invoke('get-os-info'),
-       getCPU: () => ipcRenderer.invoke('get-cpu-info'),
-       getCPULoad: () => ipcRenderer.invoke('get-cpu-load-info'),
-       getCPUTemps: () => ipcRenderer.invoke('get-cpu-temp-info'),
-       getCPUCurrentSpeed: () => ipcRenderer.invoke('get-cpu-speed-info'),
-       getMem: () => ipcRenderer.invoke('get-mem-info'),
-       getFS: () => ipcRenderer.invoke('get-fs-info'),
-       getNet: () => ipcRenderer.invoke('get-net-info'),
-       getGPU: () => ipcRenderer.invoke('get-gpu-info'),
-       getBattery: () => ipcRenderer.invoke('get-battery-info'),
-       getProcesses: () => ipcRenderer.invoke('get-processes-info')
+      getOS: () => ipcRenderer.invoke('get-os-info'),
+      getCPU: () => ipcRenderer.invoke('get-cpu-info'),
+      getCPULoad: () => ipcRenderer.invoke('get-cpu-load-info'),
+      getCPUTemps: () => ipcRenderer.invoke('get-cpu-temp-info'),
+      getCPUCurrentSpeed: () => ipcRenderer.invoke('get-cpu-speed-info'),
+      getMem: () => ipcRenderer.invoke('get-mem-info'),
+      getMemLayout: () => ipcRenderer.invoke('get-mem-layout-info'),
+      getFS: () => ipcRenderer.invoke('get-fs-info'),
+      getNet: () => ipcRenderer.invoke('get-net-info'),
+      getGPU: () => ipcRenderer.invoke('get-gpu-info'),
+      getBattery: () => ipcRenderer.invoke('get-battery-info'),
+      getProcesses: () => ipcRenderer.invoke('get-processes-info'),
+      getNvidiaGpuInfo: () => ipcRenderer.invoke('get-nvidia-gpu-info'),
+      getPowerDraw: () => ipcRenderer.invoke('get-power-draw-info')
     })
   } catch (error) {
     console.error(error)

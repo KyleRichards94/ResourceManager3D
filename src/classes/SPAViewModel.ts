@@ -13,3 +13,4 @@ export enum Views {
 
 export const CurrentView = writable<Views>(Views.CpuInfo);
 export const CpuUtilization = writable<number>(0);
+    

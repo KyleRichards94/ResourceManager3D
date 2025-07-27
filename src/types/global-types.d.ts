@@ -17,3 +17,5 @@ interface systemInfo {
 declare global {
   type SystemInfo = systemInfo;
 }
+
+//TODO delete this slop

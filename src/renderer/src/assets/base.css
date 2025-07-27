@@ -104,6 +104,17 @@ body {
     animation: scanlines 1s steps(60) infinite;
 }
 
+.dos-box {
+  z-index: 1000;
+  background-color: #1111113b;
+  color: #ffffff;
+  font-family: 'Share Tech Mono', monospace;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  border-radius: 6px;
+}
+
 /* ANIMATE UNIQUE SCANLINE */
 @keyframes scanline {
     0% {

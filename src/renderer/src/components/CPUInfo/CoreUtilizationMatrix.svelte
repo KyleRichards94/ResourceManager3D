@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
-  import {CpuUtilization} from '../../../classes/SPAViewModel.js';
+  import {CpuUtilization} from '../../../../classes/SPAViewModel.js';
 
   // eslint-disable-next-line no-undef
   let cpuLoad: SystemInfo['cpuLoad'] | null = null

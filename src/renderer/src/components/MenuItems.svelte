@@ -2,7 +2,7 @@
 	import { Vector3 } from '../../../classes/Vector3.js';
   import { CurrentView, Views } from '../../../classes/SPAViewModel.js';
   // Import the ThreeRender component
-	import ThreeRender from './ThreeRender.svelte';
+	import ThreeRender from './Three/ThreeRender.svelte';
   import ModelUrl from '../assets/Cpu.glb?url';
 
   let _WidthHeight = 80;

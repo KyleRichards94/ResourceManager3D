@@ -25,6 +25,8 @@
     "@electron-toolkit/utils": "^4.0.0",
     "bootstrap": "^5.3.7",
     "electron-updater": "^6.3.9",
+    "simplex-noise": "^4.0.3",
+    "string-similarity": "^4.0.4",
     "systeminformation": "^5.27.7",
     "three": "^0.178.0",
     "wx-svelte-grid": "^2.2.0"

@@ -7,11 +7,14 @@ type UseCases = {
   getCPUCurrentSpeed: () => Promise<SystemInfo.CpuCurrentSpeedData>;
   getCPUTemps: () => Promise<SystemInfo.CpuTemperatureData>;
   getMem: () => Promise<SystemInfo.mem>;
+  getMemLayout: () => Promise<SystemInfo.memLayout>;
   getFS: () => Promise<SystemInfo.fs>;
   getNet: () => Promise<SystemInfo.net>;
   getGPU: () => Promise<SystemInfo.gpu>;
   getBattery: () => Promise<SystemInfo.battery>;
   getProcesses: () => Promise<SystemInfo.ProcessesData>;
+  getNvidiaGpuInfo: () => Promise<{ temp: string; used: string; total: string }>;
+  getPowerDraw: () => Promise<{ power: string; limit: string }>;
 };
 
 declare global {

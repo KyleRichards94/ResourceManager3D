@@ -3,7 +3,8 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
-import { getOS, getCPU, getCPULoad, getCPUTemps, getCPUCurrentSpeed, getMem, getFS, getNet, getGPU, getBattery, getProcesses } from './SyetemSnapshot'
+import { getOS, getCPU, getCPULoad, getCPUTemps, getCPUCurrentSpeed, getMem, getFS, getNet, getGPU, getBattery, getProcesses, getMemLayout } from './SyetemSnapshot'
+import { GetNvidiaGpuInfo, GetPowerDraw } from './NvidiaCli'
 
 function createWindow(): void {
   // Create the browser window.
@@ -48,6 +49,9 @@ function createWindow(): void {
   ipcMain.handle('get-mem-info', async () => {
     return await getMem()
   })
+  ipcMain.handle('get-mem-layout-info', async () => {
+    return await getMemLayout()
+  })
   ipcMain.handle('get-fs-info', async () => {
     return await getFS()
   })
@@ -62,6 +66,12 @@ function createWindow(): void {
   })
   ipcMain.handle('get-processes-info', async () => {
     return await getProcesses()
+  })
+  ipcMain.handle('get-nvidia-gpu-info', async () => {
+    return await GetNvidiaGpuInfo()
+  })
+  ipcMain.handle('get-power-draw-info', async () => {
+    return await GetPowerDraw()
   })
 
   // HMR for renderer base on electron-vite cli.

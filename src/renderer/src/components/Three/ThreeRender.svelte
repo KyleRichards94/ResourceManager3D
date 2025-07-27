@@ -3,7 +3,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { onMount } from 'svelte';
-import { Vector3 } from '../../../classes/Vector3.js';
+import { Vector3 } from '../../../../classes/Vector3.js';
 
 export let _Style : HTMLAttributes['style'];
 export let _Class : HTMLAttributes['class'];

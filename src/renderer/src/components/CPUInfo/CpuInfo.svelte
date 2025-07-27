@@ -1,10 +1,10 @@
 <script lang="ts">
-  import Osciliscope from './Osciliscope.svelte'
-  import { Vector3 } from '../../../classes/Vector3.js'
+  import Osciliscope from '../Osciliscopes/Osciliscope.svelte'
+  import { Vector3 } from '../../../../classes/Vector3.js'
   import { onMount } from 'svelte'
-  import ThreeRender from './ThreeRender.svelte'
-  import ModelUrl from '../assets/Cpu.glb?url'
-  import { CpuUtilization } from '../../../classes/SPAViewModel.js'
+  import ThreeRender from '../Three/ThreeRender.svelte'
+  import ModelUrl from '../../assets/Cpu.glb?url'
+  import { CpuUtilization } from '../../../../classes/SPAViewModel.js'
   // eslint-disable-next-line no-undef
   let cpuInfo: SystemInfo['cpu'] | null = null
 
@@ -24,18 +24,19 @@
   {#if cpuInfo}
     <div class="row">
       <div class=" col-md-4">
-        <div class="scanlines glass border border-dark p-2 cpu-dos-box"> 
-      {cpuInfo.brand} | {cpuInfo.socket}
-       ───────────────────────────────
->      Model          : {cpuInfo.model}
->      Cores          : {cpuInfo.cores}
->      Physical Cores : {cpuInfo.physicalCores}
->      Speed          : {cpuInfo.speed} GHz
-    
->      l3 Cache Size  : {cpuInfo.cache.l3/1024/1024} MB
->      Family         : {cpuInfo.family}
->      Vendor         : {cpuInfo.vendor}
-    </div>
+        <!-- prettier-ignore -->
+        <div class="scanlines glass border border-dark p-2 dos-box"> 
+          {cpuInfo.brand} | {cpuInfo.socket}
+          ───────────────────────────────
+   >      Model          : {cpuInfo.model}
+   >      Cores          : {cpuInfo.cores}
+   >      Physical Cores : {cpuInfo.physicalCores}
+   >      Speed          : {cpuInfo.speed} GHz
+       
+   >      l3 Cache Size  : {cpuInfo.cache.l3/1024/1024} MB
+   >      Family         : {cpuInfo.family}
+   >      Vendor         : {cpuInfo.vendor}
+        </div>
       </div>
       <div class="col-md-8 d-flex align-items-center justify-content-center position-relative">
         <Osciliscope
@@ -54,12 +55,12 @@
       </div>
     </div>
   {:else}
-    <div class="cpu-dos-box">Loading CPU information...</div>
+    <div class="dos-box">Loading CPU information...</div>
   {/if}
 </div>
 
 <style>
-  .cpu-dos-box {
+  .dos-box {
     z-index: 1000;
     background-color: #1111113b;
     color: #ffffff;

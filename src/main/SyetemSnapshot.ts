@@ -3,7 +3,7 @@ import si from 'systeminformation'
 // This file contains functions to fetch system information using the systeminformation library
 // Each function returns a promise that resolves to the respective system information
 
-export async function getOS() : Promise<si.Systeminformation.OsData>{
+export async function getOS(): Promise<si.Systeminformation.OsData> {
   return await si.osInfo();
 }
 
@@ -27,6 +27,10 @@ export async function getMem(): Promise<si.Systeminformation.MemData> {
   return await si.mem();
 }
 
+export async function getMemLayout(): Promise<si.Systeminformation.MemLayoutData[]> {
+  return await si.memLayout();
+}
+
 export async function getFS(): Promise<si.Systeminformation.FsSizeData[]> {
   return await si.fsSize(); // Heavy — disk IO
 }
@@ -35,14 +39,14 @@ export async function getNet(): Promise<si.Systeminformation.NetworkStatsData[]>
   return await si.networkStats(); // Heavy — networking stats
 }
 
-export async function getGPU(): Promise<si.Systeminformation.GraphicsData>  {
+export async function getGPU(): Promise<si.Systeminformation.GraphicsData> {
   return await si.graphics(); // Moderate-heavy
 }
 
-export async function getBattery(): Promise<si.Systeminformation.BatteryData>  {
+export async function getBattery(): Promise<si.Systeminformation.BatteryData> {
   return await si.battery(); // Moderate
 }
 
-export async function getProcesses(): Promise<si.Systeminformation.ProcessesData>{
+export async function getProcesses(): Promise<si.Systeminformation.ProcessesData> {
   return await si.processes(); // Moderate
 }
