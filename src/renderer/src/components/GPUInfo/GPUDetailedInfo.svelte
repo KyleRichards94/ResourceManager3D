@@ -12,7 +12,7 @@
 </script>
 
 <!-- prettier-ignore -->
-<div class="scanlines glass border border-dark p-2 dos-box">
+<div class="scanlines glass border border-dark m-0 p-2 dos-box">
   {_Controller.vendor} | {_Controller.bus}
   ───────────────────────────────────────────
   >  Model            : {_Controller.model}
@@ -41,15 +41,6 @@
   >  VRAM Utilization : {_NvidiaCard
       ? `${fallback(_NvidiaGpuInfo?.["utilization.memory"], _Controller.utilizationMemory)}%`
       : `${_Controller.utilizationMemory ?? 'N/A'}%`}
-  >  Temp (GPU)       : {_NvidiaCard
-      ? `${fallback(_NvidiaGpuInfo?.["temperature.gpu"], _Controller.temperatureGpu)}°C`
-      : `${_Controller.temperatureGpu ?? 'N/A'}°C`}
-  >  Power Draw       : {_NvidiaCard
-      ? `${fallback(_NvidiaGpuInfo?.["power.draw"], _Controller.powerDraw)} W`
-      : `${_Controller.powerDraw ?? 'N/A'} W`}
-  >  Power Limit      : {_NvidiaCard
-      ? `${fallback(_NvidiaGpuInfo?.["power.limit"], _Controller.powerLimit)} W`
-      : `${_Controller.powerLimit ?? 'N/A'} W`}
   >  Clock (Core)     : {_NvidiaCard
       ? `${fallback(_NvidiaGpuInfo?.["clocks.gr"], _Controller.clockCore)} MHz`
       : `${_Controller.clockCore ?? 'N/A'} MHz`}

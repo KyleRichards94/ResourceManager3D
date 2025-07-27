@@ -85,15 +85,19 @@
           )
         }
 
-        // Start animation for this display
         drawOscilloscope()
       })
     }
   })
 </script>
 
-<div>
-  <div class="scanlines glass border border-dark p-2 dos-box">
-    <canvas id="display-canvas" width="{_Width}px" height="{_Height}px"></canvas>
-  </div>
+<div
+  class="scanlines glass border border-dark w-100 p-2 m-0 dos-box align-content-center justify-content-center"
+>
+  <canvas
+    style="transform: translate(50%, 0);"
+    id="display-canvas"
+    width="{_Width}px"
+    height="{_Height}px"
+  ></canvas>
 </div>

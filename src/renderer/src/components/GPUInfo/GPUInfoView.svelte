@@ -47,44 +47,47 @@
   }
 </script>
 
-<div class="container d-flex flex-column">
-  {#if _GpuInfo}
-    <div class="row">
-      <div class="col-md-6" style="height: 150px;">
+{#if _GpuInfo}
+  <div class="container d-flex flex-column w-100 h-100">
+    <div class="row w-100 h-100">
+      <div class="col-md-6 p-0">
         <GPUDetailedInfo
           _Controllers={_GpuInfoLayout.filter((controller) => controller.subDeviceId != null)}
           {_NvidiaGpuInfo}
           _NvidiaCard={IsNvidia()}
         />
       </div>
-      <div class="col-md-6 gap-3">
-        <div class=" row scanlines glass border border-dark rounded m-0 p-0">
-          <p>> GPU Utilization</p>
-          <div class="col-md-6">
-            <PowerDraw _Interval={300} />
+      <div class="col-md-6 p-0">
+        <div class=" row scanlines glass border border-dark rounded">
+          <div class="col-md-12">
+            <PowerDraw />
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <GPUUtilization
               _Utilization={_NvidiaGpuInfo?.['utilization.gpu']}
               _VramUsed={_NvidiaGpuInfo?.['memory.used']}
               _VramTotal={_NvidiaGpuInfo?.['memory.total']}
             />
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12 text-center"><h3></h3></div>
+          <div class="col-md-12">
             <TempWidget _Temp={_NvidiaGpuInfo?.['temperature.gpu']}></TempWidget>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 position-absolute" style="top:40%; height: 130%;">
-            <Displays _Displays={_GpuDisplayData} />
           </div>
         </div>
       </div>
     </div>
-  {:else}
-    <h1>Loading GPU Info...</h1>
-  {/if}
-</div>
+  </div>
+  <div class="row p-0">
+    <div
+      class="col-md-12 position-absolute glass w-100 p-0 align-content-center justify-content-center"
+      style="bottom:43%; left:0; width: 100%;"
+    >
+      <Displays _Displays={_GpuDisplayData} />
+    </div>
+  </div>
+{:else}
+  <h1>Loading GPU Info...</h1>
+{/if}
 
 <style>
 </style>

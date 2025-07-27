@@ -23,7 +23,7 @@
 
 <style>
   .usage-bars {
-    width: 200px;
+    width: 500px;
     font-family: monospace;
     font-size: 11px;
     color: white;

@@ -1,19 +1,20 @@
 <script lang="ts">
   import { onMount } from 'svelte'
 
-  const _Width = 300
-  const _Height = 100
   export let _Interval: number = 1000
-  export let _Poll: () => Promise<number>
-  export let _Label: string = 'Value'
-  export let _Unit: string = ''
-  export let _Color: string = '#00f0ff'
+  export let _Poll: () => Promise<unknown>
+  export let _MaxHeight: number = 100
+
+  export let _Width: number = 250
+  export let _Height: number = 100
+  export let _MaxTitle: string = 'Max'
+  export let _StepTitle: string = 'Current'
+  export let _Unit: string = 'W'
 
   const MAX_POINTS = _Width
 
-  let _MaxValue: number = 0
-  let _LastValue: number = 0
-  let data: number[] = []
+  let _Title: string = ''
+  let _Data: number[] = []
   let canvas: HTMLCanvasElement
 
   function drawGraph(): void {
@@ -26,13 +27,13 @@
     ctx.fillStyle = 'white'
 
     ctx.textAlign = 'left'
-    ctx.textBaseline = 'top'
-    ctx.fillText(`Max ${_Label}: ${_MaxValue.toFixed(2)}${_Unit}`, 10, 10)
+    ctx.textBaseline = 'left'
+    ctx.fillText(`${_MaxTitle}: ${_MaxHeight}${_Unit}`, 10, 20)
 
     ctx.textAlign = 'right'
-    ctx.textBaseline = 'bottom'
-    ctx.fillText(`${_Label}: ${_LastValue.toFixed(2)}${_Unit}`, _Width - 10, _Height - 10)
-
+    ctx.textBaseline = 'right'
+    ctx.fillText(`${_StepTitle}: ${_Data[_Data.length - 1]}${_Unit}`, _Width - 10, _Height - 10)
+    _Title = `${_Data[_Data.length - 1]}${_Unit}`
     // Draw axes
     ctx.strokeStyle = 'lime'
     ctx.beginPath()
@@ -42,36 +43,31 @@
     ctx.lineTo(0, _Height) // Y axis
     ctx.stroke()
 
-    // Draw line
-    ctx.strokeStyle = _Color
+    // Draw power line
+    ctx.strokeStyle = '#00f0ff'
     ctx.beginPath()
-    data.forEach((val, i) => {
+    _Data.forEach((val, i) => {
       const x = i
-      const y = _Height - (val / _MaxValue) * _Height
+      const y = _Height - (val / _MaxHeight) * _Height
       if (i === 0) ctx.moveTo(x, y)
       else ctx.lineTo(x, y)
     })
     ctx.stroke()
   }
 
-  async function pollData(): Promise<void> {
-    try {
-      const value = await _Poll()
-      _LastValue = value
-      if (value > _MaxValue) _MaxValue = value
-      data.push(value)
-      if (data.length > MAX_POINTS) data.shift()
-      drawGraph()
-    } catch (err) {
-      console.error('Polling failed:', err)
-    }
+  async function pollPower(): void {
+    let _Tick: number = 0
+    _Tick = (await _Poll()) as number
+    _Data.push(_Tick)
+    if (_Data.length > MAX_POINTS) _Data.shift()
+    drawGraph()
   }
 
   onMount(() => {
     drawGraph()
-    const interval = setInterval(pollData, _Interval)
+    const interval = setInterval(pollPower, _Interval)
     return () => clearInterval(interval)
   })
 </script>
 
-<canvas bind:this={canvas} width={_Width} height={_Height} class="border border-dark glass" />
+<canvas title={_Title} bind:this={canvas} width={_Width} height={_Height} />
