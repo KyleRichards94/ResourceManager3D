@@ -1,4 +1,5 @@
 <script lang="ts">
+  import BarGraph from './../Shared/BarGraph.svelte'
   import { onMount, onDestroy } from 'svelte'
   import FlowerOsciliscope from '../Osciliscopes/FlowerOsciliscope.svelte'
 
@@ -64,9 +65,16 @@
     return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i]
   }
 
+  const _ByteToGBConversion: number = 1073741824
+  function toGB(bytes: number): number {
+    return Math.round(bytes / _ByteToGBConversion)
+  }
+
   $: usedPercent = mem.total ? ((mem.used / mem.total) * 100).toFixed(1) : 0
   $: freePercent = mem.total ? ((mem.free / mem.total) * 100).toFixed(1) : 0
   $: swapUsedPercent = mem.swaptotal ? ((mem.swapused / mem.swaptotal) * 100).toFixed(1) : 0
+  $: usedGB = toGB(mem.used)
+  $: totalGB = toGB(mem.total)
 </script>
 
 <div class="row d-flex h-100 d-block p-3">
@@ -183,85 +191,8 @@
   style="bottom: 200px; left:12px; width: 100%;"
 >
   {#if mem}
-    <div class="mem-bar-container">
-      <div class="mem-bar-bg">
-        <div class="mem-bar-used" style="width: {Math.round((mem.used / mem.total) * 100)}%;"></div>
-        <div
-          class="mem-bar-free"
-          style="width: {Math.round((mem.free / mem.total) * 100)}%; left: {Math.round(
-            (mem.used / mem.total) * 100
-          )}%;"
-        ></div>
-      </div>
-      <div class="mem-bar-labels">
-        <span class="mem-label">
-          Used: {formatBytes(mem.used)}
-        </span>
-        <span class="mem-label">
-          Free: {formatBytes(mem.free)}
-        </span>
-        <span class="mem-label">
-          Total: {formatBytes(mem.total)}
-        </span>
-      </div>
-    </div>
+    <BarGraph used={usedGB} total={totalGB} showLabels={true} delimeter="GB"></BarGraph>
   {:else}
     <div style="color:#3399ff;font-family:'Share Tech Mono',monospace;">Loading memory usage…</div>
   {/if}
 </div>
-
-<style>
-  .mem-bar-container {
-    width: 80%;
-    margin: 0 auto;
-    padding: 18px 0 0 0;
-  }
-  .mem-bar-bg {
-    width: 100%;
-    height: 28px;
-    background: #1a2332;
-    border-radius: 8px;
-    box-shadow: 0 2px 12px 0 rgba(30, 60, 120, 0.18);
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 10px;
-    border: 1px solid #223355;
-  }
-  .mem-bar-used {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background: linear-gradient(90deg, #3571b8 0%, #28518a 100%);
-    border-radius: 8px 0 0 8px;
-    box-shadow: 0 2px 8px 0 rgba(53, 113, 184, 0.18);
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2;
-  }
-  .mem-bar-free {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    background: linear-gradient(90deg, #223355 0%, #1a2332 100%);
-    border-radius: 0 8px 8px 0;
-    transition:
-      width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-      left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
-  }
-  .mem-bar-labels {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 1rem;
-    color: #bcdcff;
-    margin-top: 4px;
-    padding: 0 4px;
-  }
-
-  .mem-label {
-    color: #bcdcff;
-    font-weight: 400;
-  }
-</style>

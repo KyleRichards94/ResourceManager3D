@@ -3,7 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
-import { getOS, getCPU, getCPULoad, getCPUTemps, getCPUCurrentSpeed, getMem, getFS, getNet, getGPU, getBattery, getProcesses, getMemLayout } from './SyetemSnapshot'
+import { getOS, getCPU, getCPULoad, getCPUTemps, getCPUCurrentSpeed, getMem, getFS, getNet, getGPU, getBattery, getProcesses, getMemLayout } from './SystemSnapshot'
 import { GetNvidiaGpuInfo, GetPowerDraw } from './NvidiaCli'
 
 function createWindow(): void {
