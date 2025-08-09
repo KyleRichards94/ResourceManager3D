@@ -1,10 +1,9 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
-import { getOS, getCPU, getCPULoad, getCPUTemps, getCPUCurrentSpeed, getMem, getFS, getNet, getGPU, getBattery, getProcesses, getMemLayout } from './SystemSnapshot'
-import { GetNvidiaGpuInfo, GetPowerDraw } from './NvidiaCli'
+import { registerIpcHandlers } from './ipcHandlers'
 
 function createWindow(): void {
   // Create the browser window.
@@ -31,48 +30,7 @@ function createWindow(): void {
     return { action: 'deny' }
   })
 
-  ipcMain.handle('get-os-info', async () => {
-    return await getOS()
-  })
-  ipcMain.handle('get-cpu-info', async () => {
-    return await getCPU()
-  })
-  ipcMain.handle('get-cpu-load-info', async () => {
-    return await getCPULoad()
-  })
-  ipcMain.handle('get-cpu-speed-info', async () => {
-    return await getCPUCurrentSpeed()
-  })
-  ipcMain.handle('get-cpu-temp-info', async () => {
-    return await getCPUTemps()
-  })
-  ipcMain.handle('get-mem-info', async () => {
-    return await getMem()
-  })
-  ipcMain.handle('get-mem-layout-info', async () => {
-    return await getMemLayout()
-  })
-  ipcMain.handle('get-fs-info', async () => {
-    return await getFS()
-  })
-  ipcMain.handle('get-net-info', async () => {
-    return await getNet()
-  })
-  ipcMain.handle('get-gpu-info', async () => {
-    return await getGPU()
-  })
-  ipcMain.handle('get-battery-info', async () => {
-    return await getBattery()
-  })
-  ipcMain.handle('get-processes-info', async () => {
-    return await getProcesses()
-  })
-  ipcMain.handle('get-nvidia-gpu-info', async () => {
-    return await GetNvidiaGpuInfo()
-  })
-  ipcMain.handle('get-power-draw-info', async () => {
-    return await GetPowerDraw()
-  })
+  registerIpcHandlers()
 
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
@@ -96,9 +54,6 @@ app.whenReady().then(() => {
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
-
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
 
   createWindow()
 
