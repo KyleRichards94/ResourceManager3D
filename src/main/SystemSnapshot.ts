@@ -31,8 +31,20 @@ export async function getMemLayout(): Promise<si.Systeminformation.MemLayoutData
   return await si.memLayout();
 }
 
-export async function getFS(): Promise<si.Systeminformation.FsSizeData[]> {
+export async function getFSSize(): Promise<si.Systeminformation.FsSizeData[]> {
   return await si.fsSize(); // Heavy — disk IO
+}
+
+export async function getFSStats(): Promise<si.Systeminformation.FsStatsData> {
+  return await si.fsStats();
+}
+
+export async function getFSDisksIO(): Promise<si.Systeminformation.DisksIoData> {
+  return await si.disksIO();
+}
+
+export async function getFSOpenFiles(): Promise<si.Systeminformation.FsOpenFilesData[]> {
+  return await si.fsOpenFiles();
 }
 
 export async function getNet(): Promise<si.Systeminformation.NetworkStatsData[]> {
