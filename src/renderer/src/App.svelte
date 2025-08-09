@@ -1,11 +1,11 @@
 <script lang="ts">
+  import FileSystemView from './components/FileSystemInfo/FileSystemView.svelte'
   import { CurrentView, Views } from '../../classes/SPAViewModel.js'
   import CpuInfoMenu from './components/CPUInfo/CpuInfoView.svelte'
   import MenuCarousel from './components/MenuItems.svelte'
   import ActiveProcesses from './components/TsakManager/ActiveProcesses.svelte'
   import MemoryUtilization from './components/MemoryInfo/MemoryUtilization.svelte'
   import GPUInfoView from './components/GPUInfo/GPUInfoView.svelte'
-  import DiskInfoView from './components/FileSystemInfo/DiskInfoView.svelte'
 </script>
 
 <div
@@ -40,7 +40,7 @@
     {:else if $CurrentView === Views.DiskInfo}
       <div class="container">
         <div class="row">
-          <DiskInfoView />
+          <FileSystemView />
         </div>
       </div>
     {/if}

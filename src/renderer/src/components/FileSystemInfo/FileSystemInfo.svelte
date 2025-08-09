@@ -7,13 +7,13 @@
   const _ByteToGBConversion: number = 1073741824
 
   onMount(async () => {
-    await window.api.getFS().then((info) => {
+    await window.api.getFSSize().then((info) => {
       _FileSystemInfo = info
     })
   })
 
   function toGB(bytes: number): number {
-    return (bytes / _ByteToGBConversion).toFixed(2)
+    return Math.round(bytes / _ByteToGBConversion)
   }
 </script>
 
@@ -21,13 +21,14 @@
   {#each _FileSystemInfo as fs, index (index)}
     <div class="col-md-4 position-relative scanlines">
       <h3>Disk - {fs.fs}</h3>
-      <p>Size: {toGB(fs.size)} GB</p>
-      <p>Used: {toGB(fs.used)} GB</p>
-      <p>Free: {toGB(fs.size - fs.used)} GB</p>
+      <div class="row">
+        <span class="col-sm-6">Size: {toGB(fs.size)} GB</span>
+        <span class="col-sm-6">Free: {toGB(fs.size - fs.used)} GB</span>
+        <span class="col-sm-6">Used: {toGB(fs.used)} GB</span>
+        <span class="col-sm-6">Type: {fs.type}</span>
+      </div>
 
-      <BarGraph used={fs.used} total={fs.size}></BarGraph>
-
-      <p>Type: {fs.type}</p>
+      <BarGraph used={toGB(fs.used)} total={toGB(fs.size)}></BarGraph>
     </div>
   {/each}
 </div>

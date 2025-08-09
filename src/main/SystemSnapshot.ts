@@ -39,6 +39,10 @@ export async function getFSStats(): Promise<si.Systeminformation.FsStatsData> {
   return await si.fsStats();
 }
 
+export async function getFSBlockDevices(): Promise<si.Systeminformation.BlockDevicesData[]> {
+  return await si.blockDevices();
+}
+
 export async function getFSDisksIO(): Promise<si.Systeminformation.DisksIoData> {
   return await si.disksIO();
 }

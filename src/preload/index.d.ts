@@ -12,6 +12,7 @@ type UseCases = {
   getFSStats: () => Promise<si.Systeminformation.FsStatsData>;
   getFSDisksIO: () => Promise<si.Systeminformation.DisksIoData>;
   getFSOpenFiles: () => Promise<si.Systeminformation.FsOpenFilesData[]>;
+  getFSBlockDevices: () => Promise<si.Systeminformation.BlockDevicesData[]>;
   getNet: () => Promise<SystemInfo.net>;
   getGPU: () => Promise<SystemInfo.gpu>;
   getBattery: () => Promise<SystemInfo.battery>;
