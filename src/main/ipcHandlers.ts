@@ -15,7 +15,11 @@ import {
     getGPU,
     getBattery,
     getProcesses,
-    getMemLayout
+    getMemLayout,
+    getNetworkConnections,
+    getWifiNetworks,
+    getWifiInterfaces,
+    getWifiConnections
 } from './SystemSnapshot'
 import { GetNvidiaGpuInfo, GetPowerDraw } from './NvidiaCli'
 
@@ -34,6 +38,10 @@ const _IpcHandlers = {
     'get-fs-open-files': getFSOpenFiles,
     'get-fs-block-devices': getFSBlockDevices,
     'get-net-info': getNet,
+    'get-network-connections': getNetworkConnections,
+    'get-wifi-networks': getWifiNetworks,
+    'get-wifi-interfaces': getWifiInterfaces,
+    'get-wifi-connections': getWifiConnections,
     'get-gpu-info': getGPU,
     'get-battery-info': getBattery,
     'get-processes-info': getProcesses,

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import NetWorkInfoView from './components/NetWorkInfo/NetWorkInfoView.svelte'
   import FileSystemView from './components/FileSystemInfo/FileSystemView.svelte'
   import { CurrentView, Views } from '../../classes/SPAViewModel.js'
   import CpuInfoMenu from './components/CPUInfo/CpuInfoView.svelte'
@@ -21,10 +22,10 @@
           <CpuInfoMenu />
         </div>
       </div>
-    {:else if $CurrentView === Views.TaskManager}
+      <!-- {:else if $CurrentView === Views.TaskManager}
       <div class="container">
         <ActiveProcesses />
-      </div>
+      </div> -->
     {:else if $CurrentView === Views.MemoryInfo}
       <div class="container">
         <div class="row">
@@ -42,6 +43,10 @@
         <div class="row">
           <FileSystemView />
         </div>
+      </div>
+    {:else if $CurrentView === Views.NetworkInfo}
+      <div class="row">
+        <NetWorkInfoView />
       </div>
     {/if}
   </div>

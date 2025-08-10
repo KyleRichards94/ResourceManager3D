@@ -11,7 +11,7 @@
   export let _StepTitle: string = 'Current'
   export let _Unit: string = 'W'
 
-  const MAX_POINTS = _Width
+  let MAX_POINTS: number
 
   let _Title: string = ''
   let _Data: number[] = []
@@ -46,8 +46,12 @@
     // Draw power line
     ctx.strokeStyle = '#00f0ff'
     ctx.beginPath()
+
+    // Calculate the step size for proper scrolling
+    const stepSize = _Width / MAX_POINTS
+
     _Data.forEach((val, i) => {
-      const x = i
+      const x = i * stepSize
       const y = _Height - (val / _MaxHeight) * _Height
       if (i === 0) ctx.moveTo(x, y)
       else ctx.lineTo(x, y)
@@ -64,10 +68,16 @@
   }
 
   onMount(() => {
+    MAX_POINTS = Math.floor(_Width / 10) // 10 pixels per data point
     drawGraph()
     const interval = setInterval(pollPower, _Interval)
     return () => clearInterval(interval)
   })
+
+  // Reactive statement to update MAX_POINTS when _Width changes
+  $: if (_Width) {
+    MAX_POINTS = Math.floor(_Width / 10)
+  }
 </script>
 
 <canvas title={_Title} bind:this={canvas} width={_Width} height={_Height} />

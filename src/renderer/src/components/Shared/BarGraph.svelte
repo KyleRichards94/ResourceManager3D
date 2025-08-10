@@ -3,6 +3,9 @@
   export let used: number
   export let delimeter: string = ''
   export let showLabels: boolean = false
+  export let usedLabel: string | null = 'Used'
+  export let freeLabel: string | null = 'Free'
+  export let totalLabel: string | null = 'Total'
 
   $: usedPercent = Math.round((used / total) * 100)
   $: freePercent = Math.round(((total - used) / total) * 100)
@@ -16,9 +19,15 @@
 
   {#if showLabels}
     <div class="mem-bar-labels">
-      <span class="mem-label">Used: {used.toFixed(2)}{delimeter}</span>
-      <span class="mem-label">Free: {(total - used).toFixed(2)}{delimeter}</span>
-      <span class="mem-label">Total: {total.toFixed(2)}{delimeter}</span>
+      {#if usedLabel}
+        <span class="mem-label">{usedLabel}: {used.toFixed(2)}{delimeter}</span>
+      {/if}
+      {#if freeLabel}
+        <span class="mem-label">{freeLabel}: {(total - used).toFixed(2)}{delimeter}</span>
+      {/if}
+      {#if totalLabel}
+        <span class="mem-label">{totalLabel}: {total.toFixed(2)}{delimeter}</span>
+      {/if}
     </div>
   {/if}
 </div>

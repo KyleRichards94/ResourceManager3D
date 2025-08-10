@@ -66,3 +66,19 @@ export async function getBattery(): Promise<si.Systeminformation.BatteryData> {
 export async function getProcesses(): Promise<si.Systeminformation.ProcessesData> {
   return await si.processes(); // Moderate
 }
+
+export async function getNetworkConnections(): Promise<si.Systeminformation.NetworkConnectionsData[]> {
+  return await si.networkConnections();
+}
+
+export async function getWifiNetworks(): Promise<si.Systeminformation.WifiNetworkData[]> {
+  return await si.wifiNetworks();
+}
+
+export async function getWifiInterfaces(): Promise<si.Systeminformation.WifiInterfaceData[]> {
+  return await si.wifiInterfaces();
+}
+
+export async function getWifiConnections(): Promise<si.Systeminformation.WifiConnectionData[]> {
+  return await si.wifiConnections();
+}

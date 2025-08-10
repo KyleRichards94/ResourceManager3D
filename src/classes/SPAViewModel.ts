@@ -13,4 +13,7 @@ export enum Views {
 
 export const CurrentView = writable<Views>(Views.CpuInfo);
 export const CpuUtilization = writable<number>(0);
-    
+export const ByteToGBConversion: number = 1073741824
+export function toGB(bytes: number): number {
+    return Math.round(bytes / ByteToGBConversion)
+}

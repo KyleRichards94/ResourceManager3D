@@ -1,6 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
-import { getFSBlockDevices } from '../main/SystemSnapshot'
 
 // Custom APIs for renderer
 const api = {}
@@ -28,6 +27,10 @@ if (process.contextIsolated) {
       getFSOpenFiles: () => ipcRenderer.invoke('get-fs-open-files'),
       getFSBlockDevices: () => ipcRenderer.invoke('get-fs-block-devices'),
       getNet: () => ipcRenderer.invoke('get-net-info'),
+      getNetworkConnections: () => ipcRenderer.invoke('get-network-connections'),
+      getWifiNetworks: () => ipcRenderer.invoke('get-wifi-networks'),
+      getWifiInterfaces: () => ipcRenderer.invoke('get-wifi-interfaces'),
+      getWifiConnections: () => ipcRenderer.invoke('get-wifi-connections'),
       getGPU: () => ipcRenderer.invoke('get-gpu-info'),
       getBattery: () => ipcRenderer.invoke('get-battery-info'),
       getProcesses: () => ipcRenderer.invoke('get-processes-info'),
